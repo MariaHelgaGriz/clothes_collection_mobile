@@ -1,4 +1,5 @@
-#ASSIGNMENT 7#
+ASSIGNMENT 7
+
 What are the main differences between stateless and stateful widget in Flutter?
 In Flutter, two primary widget types exist: stateless widgets and stateful widgets. 
 The key differnece between them are in their handling of internal state and UI updates. Stateless widgets are unchanging and solely rely on their initial input parameters for rendering, making them ideal for static or data-driven components. In contrast, stateful widgets are mutable and maintain their internal state, allowing them to adapt to changing conditions or user interactions. When state changes, a stateful widget rebuilds itself, making them suitable for dynamic elements like interactive interfaces, forms, and animations. To choose between stateless and stateful widgets depends on whether a component needs to manage internal state and update its appearance over time or remain static.
