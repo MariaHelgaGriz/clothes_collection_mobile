@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
 
-  final List<ShopItem> items = [
-    ShopItem("View Products", Icons.checklist),
-    ShopItem("Add Product", Icons.add_shopping_cart),
-    ShopItem("Logout", Icons.logout),
+  final List<ClothesItem> items = [
+    ClothesItem("View Items", Icons.checklist,
+        Colors.blue), // Set the color for each item
+    ClothesItem("Add Items", Icons.add_shopping_cart, Colors.orange),
+    ClothesItem("Logout", Icons.logout, Colors.purple),
   ];
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -23,7 +24,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Shopping List',
+          'HEL COLLECTION ',
         ),
       ),
       body: SingleChildScrollView(
@@ -37,7 +38,7 @@ class MyHomePage extends StatelessWidget {
                 padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                 // Text widget to display text with center alignment and appropriate style
                 child: Text(
-                  'PBP Shop', // Text indicating the shop name
+                  'Inventory Management', // Text indicating the shop name
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30,
@@ -54,7 +55,7 @@ class MyHomePage extends StatelessWidget {
                 mainAxisSpacing: 10,
                 crossAxisCount: 3,
                 shrinkWrap: true,
-                children: items.map((ShopItem item) {
+                children: items.map((ClothesItem item) {
                   // Iteration for each item
                   return ShopCard(item);
                 }).toList(),
@@ -68,14 +69,14 @@ class MyHomePage extends StatelessWidget {
 }
 
 class ShopCard extends StatelessWidget {
-  final ShopItem item;
+  final ClothesItem item;
 
   const ShopCard(this.item, {Key? key}); // Constructor
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.indigo,
+      color: item.buttonColor,
       child: InkWell(
         // Responsive touch area
         onTap: () {
@@ -83,7 +84,7 @@ class ShopCard extends StatelessWidget {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
-                content: Text("You pressed the ${item.name} button!")));
+                content: Text("You clicked the ${item.name} button!")));
         },
         child: Container(
           // Container to hold Icon and Text
@@ -112,9 +113,12 @@ class ShopCard extends StatelessWidget {
   }
 }
 
-class ShopItem {
+class ClothesItem {
   final String name;
   final IconData icon;
+  final Color buttonColor;
 
-  ShopItem(this.name, this.icon);
+  ClothesItem(this.name, this.icon, this.buttonColor);
+
+  // Rest of the class remains the same
 }
