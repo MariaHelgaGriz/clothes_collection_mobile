@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:clothes_collection_mobile/widgets/cloth_card.dart';
+import 'package:clothes_collection_mobile/widgets/left_drawer.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
 
-  final List<ClothesItem> items = [
-    ClothesItem("View Items", Icons.checklist,
-        Colors.blue), // Set the color for each item
-    ClothesItem("Add Items", Icons.add_shopping_cart, Colors.orange),
-    ClothesItem("Logout", Icons.logout, Colors.purple),
+  final List<ClothingItem> items = [
+    ClothingItem("View Products", Icons.checklist),
+    ClothingItem("Add Product", Icons.add_shopping_cart),
+    ClothingItem("Logout", Icons.logout),
   ];
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -24,9 +25,10 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'HEL COLLECTION ',
+          'HEL Clothes Collection',
         ),
       ),
+      drawer: const LeftDrawer(),
       body: SingleChildScrollView(
         // Scrolling wrapper widget
         child: Padding(
@@ -38,7 +40,7 @@ class MyHomePage extends StatelessWidget {
                 padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                 // Text widget to display text with center alignment and appropriate style
                 child: Text(
-                  'Inventory Management', // Text indicating the shop name
+                  'Clothing Shop', // Text indicating the shop name
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30,
@@ -55,9 +57,9 @@ class MyHomePage extends StatelessWidget {
                 mainAxisSpacing: 10,
                 crossAxisCount: 3,
                 shrinkWrap: true,
-                children: items.map((ClothesItem item) {
+                children: items.map((ClothingItem item) {
                   // Iteration for each item
-                  return ShopCard(item);
+                  return ClothCard(item);
                 }).toList(),
               ),
             ],
@@ -68,24 +70,28 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-class ShopCard extends StatelessWidget {
-  final ClothesItem item;
+class ClothCard extends StatelessWidget {
+  final ClothingItem item;
 
-  const ShopCard(this.item, {Key? key}); // Constructor
+  const ClothCard(this.item, {Key? key}); // Constructor
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: item.buttonColor,
+      color: Colors.indigo,
       child: InkWell(
         // Responsive touch area
-        onTap: () {
-          // Show a SnackBar when clicked
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(
-                content: Text("You clicked the ${item.name} button!")));
-        },
+  // Area responsive to touch
+      onTap: () {
+        // Show SnackBar when clicked
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(SnackBar(
+              content: Text("You pressed the ${item.name} button!")));
+        // Navigate to the appropriate route (depending on the button type)
+        if (item.name == "Add Product") {
+        }
+      },
         child: Container(
           // Container to hold Icon and Text
           padding: const EdgeInsets.all(8),
@@ -113,12 +119,9 @@ class ShopCard extends StatelessWidget {
   }
 }
 
-class ClothesItem {
+class ClothingItem {
   final String name;
   final IconData icon;
-  final Color buttonColor;
 
-  ClothesItem(this.name, this.icon, this.buttonColor);
-
-  // Rest of the class remains the same
+  ClothingItem(this.name, this.icon);
 }
