@@ -137,16 +137,17 @@ Use the pbp_django_auth package to authenticate users with the Django backend.
 3. Custom Model Creation:
 Utilize Quicktype to generate Dart models from JSON data.
 Create a Dart file in the Flutter project for the generated model.
-Fetching Data from Django and Displaying in Flutter:
+
+4.Fetching Data from Django and Displaying in Flutter:
 Add HTTP package to Flutter for making HTTP requests.
 Implement a method to fetch data from a Django JSON endpoint.
 Display the retrieved data in a Flutter ListView.
 
-4. Form Integration with Django Service:
+5. Form Integration with Django Service:
 Implement a Django view for creating products.
 Modify the Flutter form to send data to Django via HTTP POST requests.
 
-5. Logout Feature Implementation:
+6. Logout Feature Implementation:
 Create a Django view for logging users out.
 Integrate logout functionality in the Flutter app using the CookieRequest instance.
 
