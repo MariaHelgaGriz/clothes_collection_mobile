@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'package:clothes_collection_mobile/screens/list_product.dart';
 import 'package:flutter/material.dart';
 import 'package:clothes_collection_mobile/screens/menu.dart';
 import 'package:clothes_collection_mobile/screens/clothlist_form.dart';
@@ -62,6 +63,17 @@ class LeftDrawer extends StatelessWidget {
               );
             },
           ),
+          ListTile(
+    leading: const Icon(Icons.shopping_basket),
+    title: const Text('Product List'),
+    onTap: () {
+        // Route menu to product page
+        Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ProductPage()),
+        );
+    },
+),
         ],
       ),
     );

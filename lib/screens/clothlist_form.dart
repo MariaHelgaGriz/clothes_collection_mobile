@@ -1,5 +1,10 @@
+import 'dart:convert';
+
+import 'package:clothes_collection_mobile/screens/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:clothes_collection_mobile/widgets/left_drawer.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class ClothFormPage extends StatefulWidget {
   const ClothFormPage({super.key});
@@ -14,8 +19,9 @@ class _ClothFormPageState extends State<ClothFormPage> {
   int _price = 0;
   String _description = "";
 
-  @override
-  Widget build(BuildContext context) {
+ @override
+Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -114,36 +120,36 @@ class _ClothFormPageState extends State<ClothFormPage> {
                       backgroundColor:
                           MaterialStateProperty.all(Color(0xFFF8B3CA)),
                     ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Product successfully saved'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Name: $_name'),
-                                    Text('Price: $_price'),
-                                    Text('Description: $_description'),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    },
+                    onPressed: () async {
+    if (_formKey.currentState!.validate()) {
+        // Send request to Django and wait for the response
+        // TODO: Change the URL to your Django app's URL. Don't forget to add the trailing slash (/) if needed.
+        final response = await request.postJson(
+        "http://<YOUR_DJANGO_APP_URL>/create-flutter/",
+        jsonEncode(<String, String>{
+            'name': _name,
+            'price': _price.toString(),
+            'description': _description,
+            // TODO: Adjust the fields with your Django model
+        }));
+        if (response['status'] == 'success') {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(
+            content: Text("New product has saved successfully!"),
+            ));
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => MyHomePage()),
+            );
+        } else {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(
+                content:
+                    Text("Something went wrong, please try again."),
+            ));
+        }
+    }
+},
                     child: const Text(
                       "Save",
                       style: TextStyle(color: Colors.white),
