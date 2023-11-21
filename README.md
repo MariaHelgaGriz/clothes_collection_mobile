@@ -90,4 +90,64 @@ Create a widgets directory and move shop_card.dart into it.
 Move ShopItem widget contents from menu.dart to widgets/cloth_card.dart.
 Create a screens folder and move menu.dart and clothlist_form.dart into it.
 
+ASSIGNMENT 9
+Can we retrieve JSON data without creating a model first? If yes, is it better than creating a model before retrieving JSON data?
+
+Yes, it's possible to retrieve JSON data without creating a model in Flutter. You can directly fetch JSON data from APIs using HTTP requests without defining models. This approach might be suitable for simple applications or when the data structure is straightforward. However, not using models can make the code harder to maintain, especially when dealing with complex data structures. Models provide a structured format to handle data more efficiently, improving code readability and maintainability.
+
+Explain the function of CookieRequest and explain why a CookieRequest instance needs to be shared with all components in a Flutter application.
+
+In Flutter, sharing an HTTP request object with cookies (CookieRequest) across components ensures consistent authentication and authorization throughout the application. Sharing this instance allows components to maintain session data, enabling user-specific functionalities and maintaining authentication state.
+
+Explain the mechanism of fetching data from JSON until it can be displayed on Flutter.
+
+Fetching data from JSON in Flutter typically involves making HTTP requests to an API endpoint. Upon receiving the JSON response, it's parsed into usable Dart objects using the jsonDecode method. These decoded objects can then be utilized to populate UI components such as lists, cards, or widgets with relevant data, displaying it to the user.
+
+Explain the authentication mechanism from entering account data on Flutter to Django authentication completion and the display of menus on Flutter.
+
+Data Entry: In Flutter, users input their account details through UI components like text fields or forms.
+HTTP Request: Upon submitting, Flutter sends an HTTP request (commonly POST) to the Django backend, carrying the entered credentials.
+Django Authentication: Django handles the incoming request, verifying the credentials against the stored user data.
+Token or Session: If the credentials match, Django generates an authentication token or sets a session, confirming the user's identity.
+Menu Display in Flutter: Upon successful authentication, the Flutter app fetches user-specific data from Django and adjusts the displayed menus accordingly.
+
+List all the widgets you used in this assignment and explain their respective functions.
+
+Scaffold: Provides the basic structure for material design visual layout, including app bars, drawers, and snack bars.
+AppBar: Represents the app bar, displaying the app's title and optional actions.
+Drawer: Creates a drawer panel, offering navigation options and settings, typically accessible via a swipe or button press.
+FutureBuilder: Allows displaying UI components based on asynchronous operations' results, like fetching data.
+ListView: Renders a scrollable list of children, often used to display dynamic content fetched from APIs.
+Text: Displays a string of text with customizable styling.
+
+Explain how you implement the checklist above step by step! (not just following the tutorial).
+
+1. Django Setup:
+Create an authentication app in Django.
+Add necessary settings for CORS, secure cookies, and sessions.
+Define a login view in Django for user authentication.
+Setup URL routing for the login function.
+
+2. Flutter Integration:
+Install required packages provider and pbp_django_auth.
+Implement the CookieRequest instance sharing using Provider in the root widget.
+Create a login screen in Flutter with text fields for username and password.
+Use the pbp_django_auth package to authenticate users with the Django backend.
+
+3. Custom Model Creation:
+Utilize Quicktype to generate Dart models from JSON data.
+Create a Dart file in the Flutter project for the generated model.
+Fetching Data from Django and Displaying in Flutter:
+Add HTTP package to Flutter for making HTTP requests.
+Implement a method to fetch data from a Django JSON endpoint.
+Display the retrieved data in a Flutter ListView.
+
+4. Form Integration with Django Service:
+Implement a Django view for creating products.
+Modify the Flutter form to send data to Django via HTTP POST requests.
+
+5. Logout Feature Implementation:
+Create a Django view for logging users out.
+Integrate logout functionality in the Flutter app using the CookieRequest instance.
+
 
